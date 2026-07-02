@@ -23,10 +23,10 @@
       transition: background-color 0.2s ease;
     }
 
-    /* 主容器，模仿百度首页宽度与留白 */
+    /* 主容器 */
     .container {
       width: 100%;
-      max-width: 680px;
+      max-width: 800px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -36,7 +36,7 @@
 
     /* 头部logo区域 */
     .logo-area {
-      margin-top: 2.5rem;
+      margin-top: 2rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -44,7 +44,7 @@
     }
 
     .logo-text {
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       font-weight: 600;
       color: #4e6ef2;
       letter-spacing: 2px;
@@ -54,7 +54,7 @@
       background-clip: text;
     }
 
-    /* 搜索框区域 (模拟百度搜索框，但用于展示说明或跳转编辑) */
+    /* 搜索框区域 */
     .search-wrapper {
       width: 100%;
       background: white;
@@ -138,30 +138,34 @@
       color: #2b4bdb;
     }
 
-    /* 卡片网格 - 类似百度搜索结果的卡片风格 */
+    /* 正方形卡片网格 */
     .sites-grid {
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
       margin-top: 0.4rem;
     }
 
-    /* 单个站点卡片，类似百度搜索结果条目 */
+    /* 正方形站点卡片 */
     .site-card {
       background: white;
       border-radius: 16px;
-      padding: 1rem 1.2rem;
+      aspect-ratio: 1 / 1;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 1rem;
+      justify-content: center;
+      gap: 0.6rem;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
       border: 1px solid rgba(0, 0, 0, 0.02);
       transition: all 0.25s ease;
       cursor: pointer;
       text-decoration: none;
       color: inherit;
+      padding: 1rem;
       position: relative;
+      overflow: hidden;
     }
 
     .site-card:hover {
@@ -173,9 +177,9 @@
 
     /* 网站图片/图标区域 */
     .site-img {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
       background: #f2f3f7;
       display: flex;
       align-items: center;
@@ -197,61 +201,69 @@
 
     /* 默认占位图标 */
     .placeholder-icon {
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: #8e94a0;
       font-weight: 500;
     }
 
     .site-info {
-      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
-      min-width: 0;
+      align-items: center;
+      gap: 0.2rem;
+      width: 100%;
+      text-align: center;
     }
 
     .site-title {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       color: #1a1a1a;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      line-height: 1.4;
-    }
-
-    .site-title-text {
+      line-height: 1.3;
+      max-width: 100%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .site-url-badge {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       background: #f0f2f5;
       padding: 0.15rem 0.5rem;
       border-radius: 12px;
       color: #5f6368;
       font-weight: 400;
       white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .site-desc {
-      font-size: 0.88rem;
+      font-size: 0.75rem;
       color: #5f6368;
-      line-height: 1.5;
+      line-height: 1.3;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
+      max-width: 100%;
     }
 
-    /* 卡片右侧小箭头 */
+    /* 卡片右上角箭头 */
     .arrow-icon {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.7rem;
       color: #b8bcc4;
-      font-size: 1.2rem;
-      margin-left: 0.2rem;
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .site-card:hover .arrow-icon {
+      opacity: 1;
     }
 
     /* 编辑模态框 */
@@ -386,6 +398,7 @@
     }
 
     .empty-message {
+      grid-column: 1 / -1;
       text-align: center;
       color: #9aa0a6;
       padding: 2rem;
@@ -394,22 +407,29 @@
 
     @media (max-width: 480px) {
       .logo-text {
-        font-size: 2.2rem;
+        font-size: 2rem;
       }
-      .site-card {
-        padding: 0.9rem;
+      
+      .sites-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.8rem;
+      }
+      
+      .site-img {
+        width: 52px;
+        height: 52px;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Logo 类似百度风格 -->
+    <!-- Logo -->
     <div class="logo-area">
       <span class="logo-text">我的导航</span>
     </div>
 
-    <!-- 搜索框仅作装饰，也支持本地过滤 -->
+    <!-- 搜索框 -->
     <div class="search-wrapper">
       <span class="search-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -427,7 +447,7 @@
       </button>
     </div>
 
-    <!-- 网站卡片列表 -->
+    <!-- 正方形网站卡片网格 -->
     <div class="sites-grid" id="sitesGrid">
       <!-- 动态渲染 -->
     </div>
@@ -476,41 +496,55 @@
           id: '1',
           name: '百度',
           url: 'https://www.baidu.com',
-          desc: '全球最大的中文搜索引擎，提供网页、图片、视频等服务。',
+          desc: '全球最大的中文搜索引擎',
           image: 'https://www.baidu.com/favicon.ico'
         },
         {
           id: '2',
           name: 'GitHub',
           url: 'https://github.com',
-          desc: '开发者协作平台，托管代码、项目与版本控制。',
+          desc: '开发者协作平台',
           image: 'https://github.com/favicon.ico'
         },
         {
           id: '3',
           name: '知乎',
           url: 'https://www.zhihu.com',
-          desc: '中文互联网高质量的问答社区和创作者聚集平台。',
+          desc: '高质量问答社区',
           image: 'https://www.zhihu.com/favicon.ico'
         },
         {
           id: '4',
           name: '哔哩哔哩',
           url: 'https://www.bilibili.com',
-          desc: '国内知名的视频弹幕网站，ACG与多元文化社区。',
+          desc: '视频弹幕网站',
           image: 'https://www.bilibili.com/favicon.ico'
+        },
+        {
+          id: '5',
+          name: '谷歌',
+          url: 'https://www.google.com',
+          desc: '全球搜索引擎',
+          image: 'https://www.google.com/favicon.ico'
+        },
+        {
+          id: '6',
+          name: '维基百科',
+          url: 'https://www.wikipedia.org',
+          desc: '自由的百科全书',
+          image: 'https://www.wikipedia.org/favicon.ico'
         }
       ];
 
       // 存储key
-      const STORAGE_KEY = 'personal_nav_sites';
+      const STORAGE_KEY = 'personal_nav_sites_square';
 
       // 当前站点数据
       let sites = [];
 
       // 编辑状态
-      let editingSiteId = null; // 正在编辑的站点id，null表示新增
-      let isEditModeActive = false; // 是否显示编辑相关按钮
+      let editingSiteId = null;
+      let isEditModeActive = false;
 
       // DOM元素
       const sitesGrid = document.getElementById('sitesGrid');
@@ -533,7 +567,6 @@
         if (stored) {
           try {
             sites = JSON.parse(stored);
-            // 确保每个站点有id
             if (!Array.isArray(sites)) sites = [];
             sites = sites.filter(s => s && typeof s === 'object');
           } catch (e) {
@@ -542,7 +575,7 @@
         } else {
           sites = [...DEFAULT_SITES];
         }
-        // 保证每个站点有id (简单处理)
+        // 保证每个站点有id
         sites.forEach((site, index) => {
           if (!site.id) {
             site.id = Date.now().toString() + index;
@@ -554,7 +587,7 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(sites));
       }
 
-      // 渲染卡片
+      // 渲染正方形卡片
       function renderSites(filterText = '') {
         if (!sitesGrid) return;
         
@@ -569,7 +602,7 @@
         });
 
         if (filtered.length === 0) {
-          sitesGrid.innerHTML = `<div class="empty-message">📭 暂无网站，点击“编辑导航”或添加新网站</div>`;
+          sitesGrid.innerHTML = `<div class="empty-message">📭 暂无网站，点击"编辑导航"或添加新网站</div>`;
           return;
         }
 
@@ -580,17 +613,15 @@
           
           return `
             <a class="site-card" href="${escapeHtml(site.url || '#')}" target="_blank" rel="noopener noreferrer" data-id="${escapeHtml(site.id)}">
+              <div class="arrow-icon">↗</div>
               <div class="site-img">
                 ${imgContent}
               </div>
               <div class="site-info">
-                <div class="site-title">
-                  <span class="site-title-text">${escapeHtml(site.name || '未命名')}</span>
-                  <span class="site-url-badge">${escapeHtml(getDomain(site.url))}</span>
-                </div>
+                <div class="site-title">${escapeHtml(site.name || '未命名')}</div>
+                <div class="site-url-badge">${escapeHtml(getDomain(site.url))}</div>
                 <div class="site-desc">${escapeHtml(site.desc || '暂无描述')}</div>
               </div>
-              <div class="arrow-icon">›</div>
             </a>
           `;
         }).join('');
@@ -613,7 +644,7 @@
           const u = new URL(url);
           return u.hostname.replace('www.', '');
         } catch (e) {
-          return url.length > 25 ? url.substring(0,25)+'…' : url;
+          return url.length > 20 ? url.substring(0,20)+'…' : url;
         }
       }
 
@@ -635,11 +666,10 @@
           `;
           openEditModeBtn.classList.remove('active-edit');
         }
-        // 同时为卡片添加点击事件拦截（编辑模式下点击卡片应打开编辑而不是跳转）
         attachCardEvents();
       }
 
-      // 为卡片绑定事件 (编辑模式下阻止跳转并打开编辑)
+      // 为卡片绑定事件
       function attachCardEvents() {
         const cards = document.querySelectorAll('.site-card');
         cards.forEach(card => {
@@ -655,10 +685,9 @@
           const siteId = card.getAttribute('data-id');
           openEditModal(siteId);
         }
-        // 非编辑模式默认允许跳转
       }
 
-      // 打开编辑模态框 (id为null则是新增)
+      // 打开编辑模态框
       function openEditModal(siteId = null) {
         editingSiteId = siteId;
         if (siteId) {
@@ -735,10 +764,8 @@
         attachCardEvents();
       }
 
-      // 删除网站 (通过编辑模态框可扩展，此处简单在编辑模式提供删除思路：长按或额外按钮，但保持简洁我们加一个隐藏功能：在编辑模式下点击卡片后，模态框内可删除)
-      // 在模态框增加删除按钮动态显示
+      // 删除按钮管理
       function addDeleteButtonToModal() {
-        // 检查是否已有删除按钮，避免重复添加
         if (document.getElementById('deleteSiteBtn')) return;
         const modalActions = document.querySelector('.modal-actions');
         const deleteBtn = document.createElement('button');
@@ -764,7 +791,7 @@
         if (btn) btn.remove();
       }
 
-      // 监视模态框打开以添加删除按钮
+      // 监视模态框
       const observer = new MutationObserver((mutations) => {
         if (modalOverlay.style.display === 'flex' && editingSiteId) {
           addDeleteButtonToModal();
@@ -792,7 +819,6 @@
 
       searchInput.addEventListener('input', (e) => {
         renderSites(e.target.value);
-        // 搜索后重新绑定卡片事件
         setTimeout(attachCardEvents, 0);
       });
 
@@ -808,18 +834,6 @@
       renderSites();
       toggleEditMode(false);
       attachCardEvents();
-
-      // 确保每次渲染后重新绑定（比如过滤时）
-      const originalRender = renderSites;
-      window.renderSites = function(filter) {
-        originalRender(filter);
-        attachCardEvents();
-      };
-      // 重写以保持一致性
-      renderSites = function(filter) {
-        originalRender(filter);
-        attachCardEvents();
-      };
     })();
   </script>
 </body>
