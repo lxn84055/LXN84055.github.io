@@ -23,7 +23,6 @@
       transition: background-color 0.2s ease;
     }
 
-    /* 主容器 */
     .container {
       width: 100%;
       max-width: 800px;
@@ -34,7 +33,6 @@
       gap: 1.8rem;
     }
 
-    /* 头部logo区域 */
     .logo-area {
       margin-top: 2rem;
       display: flex;
@@ -54,7 +52,6 @@
       background-clip: text;
     }
 
-    /* 搜索框区域 */
     .search-wrapper {
       width: 100%;
       background: white;
@@ -106,7 +103,6 @@
       color: #4e6ef2;
     }
 
-    /* 编辑按钮区域 */
     .action-bar {
       display: flex;
       justify-content: flex-end;
@@ -138,7 +134,6 @@
       color: #2b4bdb;
     }
 
-    /* 正方形卡片网格 */
     .sites-grid {
       width: 100%;
       display: grid;
@@ -147,7 +142,6 @@
       margin-top: 0.4rem;
     }
 
-    /* 正方形站点卡片 */
     .site-card {
       background: white;
       border-radius: 16px;
@@ -175,7 +169,6 @@
       background: #ffffff;
     }
 
-    /* 网站图片/图标区域 */
     .site-img {
       width: 64px;
       height: 64px;
@@ -199,7 +192,6 @@
       display: block;
     }
 
-    /* 默认占位图标 */
     .placeholder-icon {
       font-size: 2rem;
       color: #8e94a0;
@@ -251,7 +243,6 @@
       max-width: 100%;
     }
 
-    /* 卡片右上角箭头 */
     .arrow-icon {
       position: absolute;
       top: 0.5rem;
@@ -266,7 +257,7 @@
       opacity: 1;
     }
 
-    /* 编辑模态框 */
+    /* 模态框样式 */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -345,6 +336,66 @@
       box-shadow: 0 0 0 3px rgba(78,110,242,0.1);
     }
 
+    /* 图片上传区域 */
+    .image-upload-area {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .image-upload-area .form-group {
+      flex: 1;
+    }
+
+    .file-upload-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .file-upload-btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      border: 1px dashed #4e6ef2;
+      background: #f0f3ff;
+      color: #4e6ef2;
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      white-space: nowrap;
+    }
+
+    .file-upload-btn:hover {
+      background: #e0e6ff;
+      border-color: #3a56d4;
+      color: #3a56d4;
+    }
+
+    .image-preview {
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      background: #f2f3f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      flex-shrink: 0;
+    }
+
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .modal-actions {
       display: flex;
       justify-content: flex-end;
@@ -405,6 +456,26 @@
       font-size: 0.95rem;
     }
 
+    .or-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0.3rem 0;
+    }
+
+    .or-divider span {
+      color: #9aa0a6;
+      font-size: 0.8rem;
+    }
+
+    .or-divider::before,
+    .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e0e3e8;
+    }
+
     @media (max-width: 480px) {
       .logo-text {
         font-size: 2rem;
@@ -419,17 +490,19 @@
         width: 52px;
         height: 52px;
       }
+
+      .image-upload-area {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Logo -->
     <div class="logo-area">
       <span class="logo-text">我的导航</span>
     </div>
 
-    <!-- 搜索框 -->
     <div class="search-wrapper">
       <span class="search-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -447,10 +520,7 @@
       </button>
     </div>
 
-    <!-- 正方形网站卡片网格 -->
-    <div class="sites-grid" id="sitesGrid">
-      <!-- 动态渲染 -->
-    </div>
+    <div class="sites-grid" id="sitesGrid"></div>
 
     <button class="edit-btn add-site-btn" id="addSiteBtn" style="display: none;">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -458,7 +528,7 @@
     </button>
   </div>
 
-  <!-- 编辑/添加模态框 -->
+  <!-- 编辑模态框 -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
       <h3>
@@ -477,10 +547,26 @@
         <label>描述/说明</label>
         <textarea id="siteDescInput" rows="2" placeholder="全球最大的中文搜索引擎..."></textarea>
       </div>
-      <div class="form-group">
-        <label>图片地址 (可选，直接输入图片URL)</label>
-        <input type="text" id="siteImageInput" placeholder="https://example.com/logo.png 或留空">
+      
+      <!-- 图片区域 -->
+      <div class="image-upload-area">
+        <div class="file-upload-wrapper">
+          <label class="file-upload-btn" for="imageFileInput">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            上传图片
+          </label>
+          <input type="file" id="imageFileInput" accept="image/*" style="display: none;">
+          <div class="or-divider"><span>或输入URL</span></div>
+        </div>
+        <div class="image-preview" id="imagePreview">
+          <span id="previewPlaceholder" style="color: #9aa0a6; font-size: 0.8rem;">预览</span>
+        </div>
       </div>
+      <div class="form-group">
+        <label>图片地址 (URL)</label>
+        <input type="text" id="siteImageInput" placeholder="https://example.com/logo.png 或上传图片">
+      </div>
+
       <div class="modal-actions">
         <button class="btn btn-secondary" id="cancelModalBtn">取消</button>
         <button class="btn btn-primary" id="saveSiteBtn">保存</button>
@@ -490,7 +576,6 @@
 
   <script>
     (function() {
-      // ---------- 默认数据 ----------
       const DEFAULT_SITES = [
         {
           id: '1',
@@ -519,34 +604,15 @@
           url: 'https://www.bilibili.com',
           desc: '视频弹幕网站',
           image: 'https://www.bilibili.com/favicon.ico'
-        },
-        {
-          id: '5',
-          name: '谷歌',
-          url: 'https://www.google.com',
-          desc: '全球搜索引擎',
-          image: 'https://www.google.com/favicon.ico'
-        },
-        {
-          id: '6',
-          name: '维基百科',
-          url: 'https://www.wikipedia.org',
-          desc: '自由的百科全书',
-          image: 'https://www.wikipedia.org/favicon.ico'
         }
       ];
 
-      // 存储key
-      const STORAGE_KEY = 'personal_nav_sites_square';
-
-      // 当前站点数据
+      const STORAGE_KEY = 'personal_nav_sites_with_files';
       let sites = [];
-
-      // 编辑状态
       let editingSiteId = null;
       let isEditModeActive = false;
+      let tempImageData = null; // 临时存储上传的图片base64
 
-      // DOM元素
       const sitesGrid = document.getElementById('sitesGrid');
       const searchInput = document.getElementById('searchInput');
       const openEditModeBtn = document.getElementById('openEditModeBtn');
@@ -557,11 +623,13 @@
       const siteUrlInput = document.getElementById('siteUrlInput');
       const siteDescInput = document.getElementById('siteDescInput');
       const siteImageInput = document.getElementById('siteImageInput');
+      const imageFileInput = document.getElementById('imageFileInput');
+      const imagePreview = document.getElementById('imagePreview');
+      const previewPlaceholder = document.getElementById('previewPlaceholder');
       const saveSiteBtn = document.getElementById('saveSiteBtn');
       const cancelModalBtn = document.getElementById('cancelModalBtn');
       const closeModalBtn = document.getElementById('closeModalBtn');
 
-      // ---------- 初始化加载数据 ----------
       function loadSites() {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
@@ -575,7 +643,6 @@
         } else {
           sites = [...DEFAULT_SITES];
         }
-        // 保证每个站点有id
         sites.forEach((site, index) => {
           if (!site.id) {
             site.id = Date.now().toString() + index;
@@ -587,7 +654,6 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(sites));
       }
 
-      // 渲染正方形卡片
       function renderSites(filterText = '') {
         if (!sitesGrid) return;
         
@@ -627,7 +693,6 @@
         }).join('');
       }
 
-      // 简单转义防止XSS
       function escapeHtml(text) {
         if (!text) return '';
         return String(text)
@@ -648,7 +713,6 @@
         }
       }
 
-      // 切换编辑模式UI
       function toggleEditMode(active) {
         isEditModeActive = active;
         if (active) {
@@ -669,7 +733,6 @@
         attachCardEvents();
       }
 
-      // 为卡片绑定事件
       function attachCardEvents() {
         const cards = document.querySelectorAll('.site-card');
         cards.forEach(card => {
@@ -687,9 +750,33 @@
         }
       }
 
-      // 打开编辑模态框
+      // 处理图片预览
+      function updateImagePreview(src) {
+        if (src) {
+          imagePreview.innerHTML = `<img src="${escapeHtml(src)}" alt="预览">`;
+        } else {
+          imagePreview.innerHTML = '<span id="previewPlaceholder" style="color: #9aa0a6; font-size: 0.8rem;">预览</span>';
+        }
+      }
+
+      // 处理文件上传
+      function handleFileUpload(file) {
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          tempImageData = e.target.result;
+          updateImagePreview(tempImageData);
+          // 清空URL输入框，优先使用上传的图片
+          siteImageInput.value = '';
+        };
+        reader.readAsDataURL(file);
+      }
+
       function openEditModal(siteId = null) {
         editingSiteId = siteId;
+        tempImageData = null;
+        
         if (siteId) {
           const site = sites.find(s => s.id === siteId);
           if (site) {
@@ -697,7 +784,16 @@
             siteNameInput.value = site.name || '';
             siteUrlInput.value = site.url || '';
             siteDescInput.value = site.desc || '';
-            siteImageInput.value = site.image || '';
+            
+            // 判断图片是base64还是URL
+            if (site.image && site.image.startsWith('data:')) {
+              siteImageInput.value = '';
+              tempImageData = site.image;
+              updateImagePreview(site.image);
+            } else {
+              siteImageInput.value = site.image || '';
+              updateImagePreview(site.image);
+            }
           }
         } else {
           modalTitle.textContent = '添加新网站';
@@ -705,21 +801,25 @@
           siteUrlInput.value = '';
           siteDescInput.value = '';
           siteImageInput.value = '';
+          updateImagePreview('');
         }
+        
+        imageFileInput.value = '';
         modalOverlay.style.display = 'flex';
       }
 
       function closeModal() {
         modalOverlay.style.display = 'none';
         editingSiteId = null;
+        tempImageData = null;
+        imageFileInput.value = '';
       }
 
-      // 保存网站
       function saveSiteFromModal() {
         const name = siteNameInput.value.trim();
         let url = siteUrlInput.value.trim();
         const desc = siteDescInput.value.trim();
-        const image = siteImageInput.value.trim();
+        const imageUrl = siteImageInput.value.trim();
 
         if (!name) {
           alert('请填写网站名称');
@@ -729,13 +829,14 @@
           alert('请填写网站地址');
           return;
         }
-        // 自动补全协议
         if (!/^https?:\/\//i.test(url)) {
           url = 'https://' + url;
         }
 
+        // 优先使用上传的图片，其次使用URL
+        const finalImage = tempImageData || imageUrl;
+
         if (editingSiteId) {
-          // 编辑现有
           const index = sites.findIndex(s => s.id === editingSiteId);
           if (index !== -1) {
             sites[index] = {
@@ -743,17 +844,16 @@
               name,
               url,
               desc,
-              image
+              image: finalImage
             };
           }
         } else {
-          // 新增
           const newSite = {
             id: Date.now().toString(),
             name,
             url,
             desc,
-            image
+            image: finalImage
           };
           sites.push(newSite);
         }
@@ -764,7 +864,6 @@
         attachCardEvents();
       }
 
-      // 删除按钮管理
       function addDeleteButtonToModal() {
         if (document.getElementById('deleteSiteBtn')) return;
         const modalActions = document.querySelector('.modal-actions');
@@ -791,7 +890,24 @@
         if (btn) btn.remove();
       }
 
-      // 监视模态框
+      // 监听URL输入变化更新预览
+      siteImageInput.addEventListener('input', function() {
+        const url = this.value.trim();
+        if (url && !tempImageData) {
+          updateImagePreview(url);
+        } else if (!url && !tempImageData) {
+          updateImagePreview('');
+        }
+      });
+
+      // 文件上传事件
+      imageFileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          handleFileUpload(file);
+        }
+      });
+
       const observer = new MutationObserver((mutations) => {
         if (modalOverlay.style.display === 'flex' && editingSiteId) {
           addDeleteButtonToModal();
@@ -801,7 +917,6 @@
       });
       observer.observe(modalOverlay, { attributes: true, attributeFilter: ['style'] });
 
-      // 事件绑定
       openEditModeBtn.addEventListener('click', () => {
         toggleEditMode(!isEditModeActive);
       });
@@ -822,14 +937,27 @@
         setTimeout(attachCardEvents, 0);
       });
 
-      // 键盘ESC关闭
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modalOverlay.style.display === 'flex') {
           closeModal();
         }
       });
 
-      // 初始加载
+      // 支持拖拽上传
+      imagePreview.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+
+      imagePreview.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+          handleFileUpload(file);
+        }
+      });
+
       loadSites();
       renderSites();
       toggleEditMode(false);
